@@ -1,5 +1,6 @@
-import express from 'express';
+import express, {Request} from 'express';
 import axios from 'axios';
+
 
 const router = express.Router();
 
@@ -8,7 +9,8 @@ router.get('/', async (req, res) => {
         return res.status(401).send('Unauthorized');
     }
 
-    const { token, tokenSecret, profile } = req.user as Express.User;
+    const { token, tokenSecret, profile } = req.body
+
     const url = `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${profile.username}&count=10`;
 
     try {
