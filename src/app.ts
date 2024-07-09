@@ -2,6 +2,7 @@ import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import './auth/twitter';
+import cors from 'cors';
 
 import tweetsRouter from './routes/tweets';
 
@@ -34,3 +35,8 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+}));

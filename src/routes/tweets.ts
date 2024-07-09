@@ -10,6 +10,7 @@ router.get('/', async (req, res) => {
     }
 
     const { token, tokenSecret, profile } = req.body
+    console.log(profile)
 
     const url = `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${profile.username}&count=10`;
 
