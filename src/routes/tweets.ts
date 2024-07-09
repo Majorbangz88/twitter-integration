@@ -8,8 +8,8 @@ router.get('/', async (req, res) => {
         return res.status(401).send('Unauthorized');
     }
 
-    const { token, tokenSecret } = req.user as any;
-    const url = `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${req.user.profile.username}&count=10`;
+    const { token, tokenSecret, profile } = req.user as Express.User;
+    const url = `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${profile.username}&count=10`;
 
     try {
         const response = await axios.get(url, {
@@ -19,7 +19,8 @@ router.get('/', async (req, res) => {
         });
         res.json(response.data);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        const typedError = error as any;
+        res.status(500).json({ error: typedError.message });
     }
 });
 
